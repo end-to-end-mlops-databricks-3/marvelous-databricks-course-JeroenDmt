@@ -14,15 +14,16 @@ import yaml
 import sys
 from pyspark.sql import SparkSession
 import pandas as pd
+from datetime import datetime
 
-from house_price.config import ProjectConfig
+from configuration.config import ProjectConfig
 from house_price.data_processor import DataProcessor
 from marvelous.logging import setup_logging
 from marvelous.timer import Timer
 
-config = ProjectConfig.from_yaml(config_path="../project_config.yml", env="dev")
+config = ProjectConfig.from_yaml(config_path="../houseprice_config.yml", env="dev")
 
-setup_logging(log_file="logs/marvelous-1.log")
+setup_logging(log_file=f"logs/preprocess_houseprice_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
 
 logger.info("Configuration loaded:")
 logger.info(yaml.dump(config, default_flow_style=False))
