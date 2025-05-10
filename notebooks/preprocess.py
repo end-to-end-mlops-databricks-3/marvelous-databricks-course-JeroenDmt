@@ -17,15 +17,15 @@ import pandas as pd
 
 from house_price.config import ProjectConfig
 from house_price.data_processor import DataProcessor
-#from marvelous.logging import setup_logging
-#from marvelous.timer import Timer
+from marvelous.logging import setup_logging
+from marvelous.timer import Timer
 
 config = ProjectConfig.from_yaml(config_path="../project_config.yml", env="dev")
 
-#setup_logging(log_file="logs/marvelous-1.log")
+setup_logging(log_file="logs/marvelous-1.log")
 
-#logger.info("Configuration loaded:")
-#logger.info(yaml.dump(config, default_flow_style=False))
+logger.info("Configuration loaded:")
+logger.info(yaml.dump(config, default_flow_style=False))
 
 # COMMAND ----------
 
@@ -40,28 +40,28 @@ df = pd.read_csv(filepath)
 
 # COMMAND ----------
 # Load the house prices dataset
-#with Timer() as preprocess_timer:
-# Initialize DataProcessor
-data_processor = DataProcessor(df, config, spark)
+with Timer() as preprocess_timer:
+    # Initialize DataProcessor
+    data_processor = DataProcessor(df, config, spark)
 
-# Preprocess the data
-data_processor.preprocess()
+    # Preprocess the data
+    data_processor.preprocess()
 
-#logger.info(f"Data preprocessing: {preprocess_timer}")
+logger.info(f"Data preprocessing: {preprocess_timer}")
 
 # COMMAND ----------
 
 # Split the data
 X_train, X_test = data_processor.split_data()
-#logger.info("Training set shape: %s", X_train.shape)
-#logger.info("Test set shape: %s", X_test.shape)
+logger.info("Training set shape: %s", X_train.shape)
+logger.info("Test set shape: %s", X_test.shape)
 
 # COMMAND ----------
 # Save to catalog
-#logger.info("Saving data to catalog")
+logger.info("Saving data to catalog")
 data_processor.save_to_catalog(X_train, X_test)
 
 # Enable change data feed (only once!)
-#logger.info("Enable change data feed")
+logger.info("Enable change data feed")
 data_processor.enable_change_data_feed()
 # COMMAND ----------
