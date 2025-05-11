@@ -1,7 +1,5 @@
 """Data preprocessing module."""
 
-import datetime
-
 import pandas as pd
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import current_timestamp, to_utc_timestamp
@@ -40,7 +38,7 @@ class DataProcessor:
         # Extract target and relevant features
         # target = self.config.target
         # relevant_columns = cat_features + num_features + [target] + ["Booking_ID"]
-        
+
         # self.df = self.df[relevant_columns]
         # self.df["Booking_ID"] = self.df["Booking_ID"].astype("str")
 

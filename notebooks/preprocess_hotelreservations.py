@@ -1,5 +1,4 @@
 # Databricks notebook source
-
 %pip install -e ..
 %restart_python
 
@@ -9,17 +8,17 @@ import sys
 sys.path.append(str(Path.cwd().parent / 'src'))
 
 # COMMAND ----------
-from loguru import logger
-import yaml
-import sys
-from pyspark.sql import SparkSession
-import pandas as pd
 from datetime import datetime
+
+import pandas as pd
+import yaml
+from loguru import logger
+from marvelous.logging import setup_logging
+from marvelous.timer import Timer
+from pyspark.sql import SparkSession
 
 from configuration.config import ProjectConfig
 from hotel_reservations.data_processor import DataProcessor
-from marvelous.logging import setup_logging
-from marvelous.timer import Timer
 
 config = ProjectConfig.from_yaml(config_path="../hotelreservation_config.yml", env="dev")
 
@@ -31,7 +30,7 @@ logger.info(yaml.dump(config, default_flow_style=False))
 # COMMAND ----------
 
 # Load the house prices dataset
-# spark = SparkSession.builder.getOrCreate()
+spark = SparkSession.builder.getOrCreate()
 
 filepath = "../data/HotelReservations.csv"
 

@@ -86,6 +86,9 @@ lint.ignore = [
     "D100", # missing docstring
     "ERA001" # commented out code
 ]
+extend-exclude = [
+    "notebooks/*.py" # Can't get the magic commands to pass in the notebooks, and struggling to get a python script to work (environment not set correctly)
+]
 
 [tool.ruff.format]
 indent-style = "space"
