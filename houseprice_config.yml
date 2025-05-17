@@ -8,6 +8,10 @@ dev:
   catalog_name: mlops_dev
   schema_name: jeroendi
 
+experiment_name_basic: /Shared/jeroend-house-prices-basic
+experiment_name_custom: /Shared/jeroend-house-prices-custom
+
+
 parameters:
   learning_rate: 0.01
   n_estimators: 1000
