@@ -31,10 +31,10 @@ from house_price.models.feature_lookup_model import FeatureLookUpModel
 # mlflow.set_registry_uri("databricks-uc")
 
 spark = SparkSession.builder.getOrCreate()
-tags_dict = {"git_sha": "abcd12345", "branch": "week2"}
+tags_dict = {"git_sha": "abcd12345", "branch": "week3"}
 tags = Tags(**tags_dict)
 
-config = ProjectConfig.from_yaml(config_path="../project_config.yml")
+config = ProjectConfig.from_yaml(config_path="../houseprice_config.yml")
 
 
 # COMMAND ----------
@@ -78,7 +78,7 @@ fe_model.register_model()
 # Load test set from Delta table
 spark = SparkSession.builder.getOrCreate()
 
-test_set = spark.table(f"{config.catalog_name}.{config.schema_name}.test_set").limit(10)
+test_set = spark.table(f"{config.catalog_name}.{config.schema_name}.house_test_set").limit(10)
 
 # Drop feature lookup columns and target
 X_test = test_set.drop("OverallQual", "GrLivArea", "GarageCars", config.target)
@@ -107,4 +107,5 @@ predictions = fe_model.load_latest_model_and_predict(X_test)
 logger.info(predictions)
 
 # COMMAND ----------
+
 

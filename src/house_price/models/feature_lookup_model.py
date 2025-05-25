@@ -59,10 +59,10 @@ class FeatureLookUpModel:
         self.spark.sql(f"ALTER TABLE {self.feature_table_name} SET TBLPROPERTIES (delta.enableChangeDataFeed = true);")
 
         self.spark.sql(
-            f"INSERT INTO {self.feature_table_name} SELECT Id, OverallQual, GrLivArea, GarageCars FROM {self.catalog_name}.{self.schema_name}.train_set"
+            f"INSERT INTO {self.feature_table_name} SELECT Id, OverallQual, GrLivArea, GarageCars FROM {self.catalog_name}.{self.schema_name}.house_train_set"
         )
         self.spark.sql(
-            f"INSERT INTO {self.feature_table_name} SELECT Id, OverallQual, GrLivArea, GarageCars FROM {self.catalog_name}.{self.schema_name}.test_set"
+            f"INSERT INTO {self.feature_table_name} SELECT Id, OverallQual, GrLivArea, GarageCars FROM {self.catalog_name}.{self.schema_name}.house_test_set"
         )
         logger.info("✅ Feature table created and populated.")
 
@@ -87,10 +87,10 @@ class FeatureLookUpModel:
 
         Drops specified columns and casts 'YearBuilt' to integer type.
         """
-        self.train_set = self.spark.table(f"{self.catalog_name}.{self.schema_name}.train_set").drop(
+        self.train_set = self.spark.table(f"{self.catalog_name}.{self.schema_name}.house_train_set").drop(
             "OverallQual", "GrLivArea", "GarageCars"
         )
-        self.test_set = self.spark.table(f"{self.catalog_name}.{self.schema_name}.test_set").toPandas()
+        self.test_set = self.spark.table(f"{self.catalog_name}.{self.schema_name}.house_test_set").toPandas()
 
         self.train_set = self.train_set.withColumn("YearBuilt", self.train_set["YearBuilt"].cast("int"))
         self.train_set = self.train_set.withColumn("Id", self.train_set["Id"].cast("string"))
