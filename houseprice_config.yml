@@ -10,7 +10,7 @@ dev:
 
 experiment_name_basic: /Shared/jeroend-house-prices-basic
 experiment_name_custom: /Shared/jeroend-house-prices-custom
-
+experiment_name_fe: /Shared/jeroend-house-prices-fe
 
 parameters:
   learning_rate: 0.01
